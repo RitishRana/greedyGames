@@ -1,0 +1,68 @@
+<div align="center">
+    <h2 align="center">Available Tracks !</h2>
+    <div class="form-group has-feedback" style="width: 30%;height: 40%;align-self: center">
+        <input ng-model="searchText" type="text" class="form-control" id="inputSuccess2"/>
+        <button type="button" ng-click="search(searchText)" class="btn btn-success" >Search</button>
+    </div>
+    (click to see details)<br>
+
+    <div class="container" ng-repeat="track in tracks">
+      <div class="list-group" style="width: 30%;height: 40%;align-self: center">
+        <button style="text-align: center" class="list-group-item" ng-click="open(track.id)" data-toggle="modal" data-target="#myModal">[[track.track_name]]</button>
+      </div>
+    </div>
+
+    <!-- Modal -->
+          <div class="modal fade" id="myModal" role="dialog" >
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Track Details</h4>
+                </div>
+                <div class="modal-body">
+                  <ul class="list-group">
+                      <li class="list-group-item list-group-item-success">Title: [[trackDetail.title]]</li>
+                      <li class="list-group-item list-group-item-info">Genre: [[trackDetail.genre_name]]</li>
+                      <li class="list-group-item list-group-item-warning">Rating: [[trackDetail.rating]]</li>
+                  </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+    <button type="button" ng-click="addNewTrack()" class="btn btn-success" data-toggle="modal" data-target="#newModal">Add new Track</button>
+
+    <div class="modal fade" id="newModal" role="dialog" >
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">ADD New Track !</h4>
+                </div>
+                <div class="modal-body">
+                  <form method="post" action="track/add">
+                    <input type="text" ng-model="newTrack.title" class="form-control" id="inputdefault" placeholder="Title"/>
+                    <input ng-model="newTrack.rating" style="margin-top: 10px; margin-bottom: 10px" type="text" class="form-control" id="inputdefault" placeholder="Rating"/>
+                    <div>
+                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">[[genreClick]]<span class="caret"></span></button>
+                        <ul class="dropdown-menu dropdown-menu-left" style="top:135px; left: 68px;">
+                        <div ng-repeat="genre in genres">
+                            <li ng-click="click(genre.fields.genre_name, genre.pk)">[[genre.fields.genre_name]]</li>
+                        </div>
+                        </ul>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" ng-click="add(newTrack)" class="btn btn-default" >Add</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+</div>
